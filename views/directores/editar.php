@@ -1,6 +1,5 @@
 <?php
     require_once('../../controllers/director/directorControlador.php');
-    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,10 +24,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/directores/lista.php">Directores </a>
             </li>
             <li class="nav-item">
@@ -46,38 +45,33 @@
     </nav>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Crear Directores</h2>
+            <h2 class="text-center">Editar Directores</h2>
         </div>
     </div>
     <div class="container">
         <?php
+        
+            $idDirector = $_GET['id'];
+            
+            $director = traerDirectorPorId($idDirector);
+
             $vEnviado = false;
-            $vDirectorCreado = false;
-            if(isset($_POST['crearBtn'])){
+            $vDirectorEditado = false;
+
+            if(isset($_POST['editarBtn'])){
                 $vEnviado = true;
             }
             if($vEnviado){
-                if(isset($_POST['dniDirector'])){
-                    $vDirectorCreado = guardarDirector($_POST['nombreDirector'], $_POST['apellidosDirector'], $_POST['dniDirector'], $_POST['fechaNacDirector'], $_POST['nacionalidadDirector']);
+                if(isset($_POST['nombreDirector'])){
+                    $vDirectorEditado = editarDirector($idDirector,$_POST['nombreDirector'], $_POST['apellidosDirector'], $director->getDni(), $_POST['fechaNacDirector'], $_POST['nacionalidadDirector']);
                 }
             }
 
             if(!$vEnviado){
+            
         ?>
-        <form name="crear_director" action="" method="POST">
-            <div class="container">
-                <div class="row justify-content-md-center">
-                    <div class="col-4">
-                        <label for="dniDirector" class="form-label">DNI Director</label>
-                    </div>
-                </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-4">
-                        <input name="dniDirector" id="dniDirector" type="text"
-                            placeholder="Introduce el dni" class="form-control" required>
-                    </div>
-                </div>
-            </div>
+        
+        <form name="editar_director" action="" method="POST">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
@@ -87,7 +81,8 @@
                 <div class="row justify-content-md-center">
                     <div class="col-4">
                         <input name="nombreDirector" id="nombreDirector" type="text"
-                            placeholder="Introduce el nombre" class="form-control" required>
+                            placeholder="Introduce el nombre" class="form-control" required
+                            value="<?php if(isset($director)) echo $director->getNombre(); ?>">
                     </div>
                 </div>
             </div>
@@ -100,49 +95,66 @@
                 <div class="row justify-content-md-center">
                     <div class="col-4">
                         <input name="apellidosDirector" id="apellidosDirector" type="text"
-                            placeholder="Introduce el apellido" class="form-control" required>
+                            placeholder="Introduce el apellido" class="form-control" required
+                            value="<?php if(isset($director)) echo $director->getApellidos(); ?>">
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <label for="nacionalidadDirector" class="form-label">Nacionalidad Director</label>
+                        <label for="dniDirector" class="form-label">Dni Director</label>
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <input name="nacionalidadDirector" id="nacionalidadDirector" type="text"
-                            placeholder="Introduce la nacionalidad" class="form-control" required>
+                        <input name="dniDirector" id="dniDirector" type="text"
+                            placeholder="Introduce el dni" class="form-control" disabled
+                            value="<?php if(isset($director)) echo $director->getDni(); ?>">
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <label for="fechaNacDirector" class="form-label">Fecha Nacimiento</label>
+                        <label for="fechaNacDirector" class="form-label">Fecha de Nacimiento</label>
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
                         <input name="fechaNacDirector" id="fechaNacDirector" type="date"
-                            placeholder="Introduce la fecha de nacimiento" class="form-control" required>
+                            placeholder="Fecha de nacimiento" class="form-control" disabled
+                            value="<?php if(isset($director)) echo $director->getFechaNac(); ?>">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <label for="nacionalidadDirector" class="form-label">Nacionalidad</label>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <input name="nacionalidadDirector" id="nacionalidadDirector" type="text"
+                            placeholder="Nacionalidad" class="form-control" required
+                            value="<?php if(isset($director)) echo $director->getNacionalidad(); ?>">
                     </div>
                 </div>
             </div>
             <div class="row justify-content-md-center m-3">
                 <!-- <div class="col-2"> -->
-                    <input type="submit" value="Crear" class="btn btn-primary" name="crearBtn">
+                    <input type="submit" value="Editar" class="btn btn-primary" name="editarBtn">
                 <!-- </div> -->
             </div>
         </form>
         <?php
             }else{
-                if($vDirectorCreado){
+                if($vDirectorEditado){
         ?>
         <div class="container">
             <div class="alert alert-success" role="alert">
-                Director creado correctamente.
+                Director editado correctamente.
             </div>
         </div>
         <?php
@@ -161,6 +173,7 @@
         <?php
             }
         ?>
+        
         <div class="row justify-content-md-center m-3">
             <!-- <div class="col-2"> -->
                 <a href="/views/directores/lista.php"><button class="btn btn-danger">Volver</button></a>

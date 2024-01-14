@@ -68,22 +68,29 @@
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>DNI</th>
+                        <th>Nacimiento</th>
+                        <th>Nacionalidad</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                         foreach($listaDirectores as $dcts){
+                           $fechaNacFormat = new DateTime($dcts->getFechaNac());
+                            
                     ?>
                     <tr>
                         <td><?php echo $dcts->getId() ?></td>
                         <td><?php echo $dcts->getNombre() ?></td>
                         <td><?php echo $dcts->getApellidos() ?></td>
+                        <td><?php echo $dcts->getDni() ?></td>
+                        <td><?php echo $fechaNacFormat->format("d-m-Y") ?></td>
+                        <td><?php echo $dcts->getNacionalidad() ?></td>
                         <td>
                             <a class="btn btn-warning" 
-                                href="/views/plataformas/editar.php?id=
+                                href="/views/directores/editar.php?id=
                                 <?php echo $dcts->getId(); ?>">Editar</a>
                             <a class="btn btn-danger"
-                                href="/views/plataformas/eliminar.php?id=
+                                href="/views/directores/eliminar.php?id=
                                 <?php echo $dcts->getId(); ?>">Eliminar</a>
                         </td>
                     </tr>

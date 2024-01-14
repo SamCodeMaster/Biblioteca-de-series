@@ -4,7 +4,7 @@
     
     function iniciarConexionDB(){
         $user = 'root';
-        $password = '';
+        $password = 'root';
         $db = 'viublioteca';
         $host = 'localhost';
         $port = 3306;
@@ -39,7 +39,7 @@
 
     }
 
-    function traerDirectoresPorId($dId){
+    function traerDirectorPorId($dId){
         $mysqli = iniciarConexionDB();
         $query = "Select * from directores Where id = $dId";
         $vDirectorBD = $mysqli->query($query);
@@ -100,7 +100,7 @@
     function editarDirector($dId, $dNombre, $dApellidos, $dDni, $dFecha_Nac, $dNacionalidad){
         $vExisteDirector = existeDirector($dDni);
 
-        if(!$vExisteDirector) {
+        if($vExisteDirector) {
             $mysqli = iniciarConexionDB();
             $vBanderaEditado = false;
             if($vResultado = $mysqli->query("Update directores Set nombre='$dNombre', apellidos='$dApellidos', nacionalidad='$dNacionalidad' Where id='$dId'")){
