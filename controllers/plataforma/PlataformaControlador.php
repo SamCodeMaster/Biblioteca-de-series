@@ -27,6 +27,7 @@
     }
     
     function traerPlataformas(){
+        echo 'entr';
         $mysqli = iniciarConexionDB();
         $listaPlataformas = $mysqli->query("Select * from plataformas");
         $arregloPlataformas = [];

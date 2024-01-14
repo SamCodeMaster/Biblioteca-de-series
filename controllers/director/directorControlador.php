@@ -4,7 +4,7 @@
     
     function iniciarConexionDB(){
         $user = 'root';
-        $password = '';
+        $password = 'root';
         $db = 'viublioteca';
         $host = 'localhost';
         $port = 3306;
@@ -30,7 +30,7 @@
         $listaDirectores = $mysqli->query("Select * from directores");
         $arregloDirectores = [];
         foreach($listaDirectores as $director){
-            $objeto = new Director($director['id'], $director['nombre'], $director['apellidos'], $director['dni'], $director['fecha_nac'], $director['nacionalidad']);
+            $objeto = new Director($director['id'], $director['nombre'], $director['apellido'], $director['dni'], $director['fecha_nac'], $director['nacionalidad']);
             array_push($arregloDirectores, $objeto);
         }
 
@@ -45,7 +45,7 @@
         $vDirectorBD = $mysqli->query($query);
         $arregloDirectores = [];
         foreach($vDirectorBD as $director){
-            $objeto = new Director($director['id'], $director['nombre'], $director['apellidos'], $director['dni'], $director['fecha_nac'], $director['nacionalidad']);
+            $objeto = new Director($director['id'], $director['nombre'], $director['apellido'], $director['dni'], $director['fecha_nac'], $director['nacionalidad']);
             array_push($arregloDirectores, $objeto);
         }
         $mysqli->close();
@@ -63,7 +63,7 @@
         
         $arregloDirectores = [];
         foreach($listaDirectores as $director){
-            $objeto = new Director($director['id'], $director['nombre'], $director['apellidos'], $director['dni'], $director['fecha_nac'], $director['nacionalidad']);
+            $objeto = new Director($director['id'], $director['nombre'], $director['apellido'], $director['dni'], $director['fecha_nac'], $director['nacionalidad']);
             array_push($arregloDirectores, $objeto);
         }
         
@@ -84,10 +84,9 @@
             $mysqli = iniciarConexionDB();
             $vBanderaGuardado = false;
             
-            if($vResultado = $mysqli->query("Insert Into directores(nombre, apellidos, dni, fecha_nac, nacionalidad) Values ('$dNombre', '$dApellidos', '$dDni', '$dFecha_Nac', '$dNacionalidad')")){
+            if($vResultado = $mysqli->query("Insert Into directores(nombre, apellido, dni, fecha_nac, nacionalidad) Values ('$dNombre', '$dApellidos', '$dDni', '$dFecha_Nac', '$dNacionalidad')")){
                 $vBanderaGuardado = true;
             }
-            echo "fdssgsadg";
             $mysqli->close();
             return $vBanderaGuardado;
         }else {
@@ -103,7 +102,7 @@
         if(!$vExisteDirector) {
             $mysqli = iniciarConexionDB();
             $vBanderaEditado = false;
-            if($vResultado = $mysqli->query("Update directores Set nombre='$dNombre', apellidos='$dApellidos', nacionalidad='$dNacionalidad' Where id='$dId'")){
+            if($vResultado = $mysqli->query("Update directores Set nombre='$dNombre', apellido='$dApellidos', nacionalidad='$dNacionalidad' Where id='$dId'")){
                 $vBanderaEditado = true;
             }
             $mysqli->close();
