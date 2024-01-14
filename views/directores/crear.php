@@ -1,5 +1,5 @@
 <?php
-    require_once('../../controllers/idiomas/idiomasControlador.php');
+    require_once('../../controllers/director/directorControlador.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -27,13 +27,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/directores/lista.php">Directores </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/views/actores/lista.php">Actores </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/idiomas/lista.php">Idiomas </a>
             </li>
             <li class="nav-item">
@@ -45,72 +45,103 @@
     </nav>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Editar idiomas</h2>
+            <h2 class="text-center">Crear Directores</h2>
         </div>
     </div>
     <div class="container">
         <?php
-            $ididiomas = $_GET['id'];
-            $idiomas = traeridiomaId($ididiomas);
-
             $vEnviado = false;
-            $vIdiomaEditado = false;
-
-            if(isset($_POST['editarBtn'])){
+            $vDirectorCreado = false;
+            if(isset($_POST['crearBtn'])){
                 $vEnviado = true;
             }
             if($vEnviado){
-                if(isset($_POST['nombre_idioma'])){
-                    $vIdiomaEditado = editaridiomas($ididiomas,$_POST['nombre_idioma'], $_POST['ISO_code']);
+                if(isset($_POST['dniDirector'])){
+                    $vDirectorCreado = guardarDirector($_POST['nombreDirector'], $_POST['apellidosDirector'], $_POST['dniDirector'], $_POST['fechaNacDirector'], $_POST['nacionalidadDirector']);
                 }
             }
 
             if(!$vEnviado){
-            
         ?>
-        
-        <form name="editar_idiomas" action="" method="POST">
+        <form name="crear_director" action="" method="POST">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <label for="nombre_idioma" class="form-label">Nombre idiomas</label>
+                        <label for="dniDirector" class="form-label">DNI Director</label>
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <input name="nombre_idioma" id="nombre_idioma" type="text"
-                            placeholder="Intrudice el nombre" class="form-control" required
-                            value="<?php if(isset($idiomas)) echo $idiomas->getNombre(); ?>">
+                        <input name="dniDirector" id="dniDirector" type="text"
+                            placeholder="Introduce el dni" class="form-control" required>
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <label for="ISO_code" class="form-label">Codigo ISO</label>
+                        <label for="nombreDirector" class="form-label">Nombre Director</label>
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <input name="ISO_code" id="ISO_code" type="text"
-                            placeholder="Intrudice el ISO_code" class="form-control" required
-                            value="<?php if(isset($idiomas)) echo $idiomas->getISO_code(); ?>">
+                        <input name="nombreDirector" id="nombreDirector" type="text"
+                            placeholder="Introduce el nombre" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <label for="apellidosDirector" class="form-label">Apellidos Director</label>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <input name="apellidosDirector" id="apellidosDirector" type="text"
+                            placeholder="Introduce el apellido" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <label for="nacionalidadDirector" class="form-label">Nacionalidad Director</label>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <input name="nacionalidadDirector" id="nacionalidadDirector" type="text"
+                            placeholder="Introduce la nacionalidad" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <label for="fechaNacDirector" class="form-label">Fecha Nacimiento</label>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <input name="fechaNacDirector" id="fechaNacDirector" type="date"
+                            placeholder="Introduce la fecha de nacimiento" class="form-control" required>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-md-center m-3">
                 <!-- <div class="col-2"> -->
-                    <input type="submit" value="Editar" class="btn btn-primary" name="editarBtn">
+                    <input type="submit" value="Crear" class="btn btn-primary" name="crearBtn">
                 <!-- </div> -->
             </div>
         </form>
         <?php
             }else{
-                if($vIdiomaEditado){
+                if($vDirectorCreado){
         ?>
         <div class="container">
             <div class="alert alert-success" role="alert">
-                idiomas editados correctamente.
+                Plataforma creada correctamente.
             </div>
         </div>
         <?php
@@ -120,7 +151,7 @@
         ?>
         <div class="container">
             <div class="alert alert-danger" role="alert">
-                Algo salio mal! Verifique que el nombre en los idiomas no este repetido.
+                Algo salio mal! Verifique que el nombre de la plataforma no este repetido.
             </div>
         </div>
         <?php
@@ -129,10 +160,9 @@
         <?php
             }
         ?>
-        
         <div class="row justify-content-md-center m-3">
             <!-- <div class="col-2"> -->
-                <a href="/views/idiomas/lista.php"><button class="btn btn-danger">Volver</button></a>
+                <a href="/views/directores/lista.php"><button class="btn btn-danger">Volver</button></a>
             <!-- </div> -->
         </div>
     </div>

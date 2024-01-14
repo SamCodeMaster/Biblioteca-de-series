@@ -26,7 +26,7 @@
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Directores </a>
+                <a class="nav-link" href="/views/directores/lista.php">Directores </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/views/actores/lista.php">Actores </a>

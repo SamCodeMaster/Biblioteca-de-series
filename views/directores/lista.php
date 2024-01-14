@@ -1,6 +1,6 @@
 
 <?php
-    require_once('../../controllers/plataforma/PlataformaControlador.php');
+    require_once('../../controllers/director/directorControlador.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,10 +23,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/directores/lista.php">Directores </a>
             </li>
             <li class="nav-item">
@@ -44,47 +44,47 @@
     </nav>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Lista De Plataformas</h2>
+            <h2 class="text-center">Lista De Directores</h2>
         </div>
     </div>
     <div class="row m-3">
         <div class="col-12">
-        <a href="/views/plataformas/crear.php">
-            <button type="button" class="btn btn-success">Crear Plataforma</button>
+        <a href="/views/directores/crear.php">
+            <button type="button" class="btn btn-success">Crear Director</button>
         </a>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             <?php
-                $listaPlataformas = traerPlataformas();
+                $listaDirectores = traerDirectores();
 
-                if(count($listaPlataformas) > 0){
+                if(count($listaDirectores) > 0){
             ?>
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Slogan</th>
-                        <th>Acción</th>
+                        <th>Apellidos</th>
+                        <th>DNI</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                        foreach($listaPlataformas as $plat){
+                        foreach($listaDirectores as $dcts){
                     ?>
                     <tr>
-                        <td><?php echo $plat->getId() ?></td>
-                        <td><?php echo $plat->getNombre() ?></td>
-                        <td><?php echo $plat->getSlogan() ?></td>
+                        <td><?php echo $dcts->getId() ?></td>
+                        <td><?php echo $dcts->getNombre() ?></td>
+                        <td><?php echo $dcts->getApellidos() ?></td>
                         <td>
                             <a class="btn btn-warning" 
                                 href="/views/plataformas/editar.php?id=
-                                <?php echo $plat->getId(); ?>">Editar</a>
+                                <?php echo $dcts->getId(); ?>">Editar</a>
                             <a class="btn btn-danger"
                                 href="/views/plataformas/eliminar.php?id=
-                                <?php echo $plat->getId(); ?>">Eliminar</a>
+                                <?php echo $dcts->getId(); ?>">Eliminar</a>
                         </td>
                     </tr>
                     <?php
