@@ -1,5 +1,5 @@
 <?php
-    require_once('../../controllers/plataforma/PlataformaControlador.php');
+    require_once('../../controllers/idiomas/idiomasControlador.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,7 +24,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
             <li class="nav-item">
@@ -33,7 +33,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/views/actores/lista.php">Actores </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/idiomas/lista.php">Idiomas </a>
             </li>
             <li class="nav-item">
@@ -45,34 +45,34 @@
     </nav>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Crear Plataforma</h2>
+            <h2 class="text-center">Crear idiomas</h2>
         </div>
     </div>
     <div class="container">
         <?php
             $vEnviado = false;
-            $vPlataformaCreada = false;
+            $vIdiomaCreado = false;
             if(isset($_POST['crearBtn'])){
                 $vEnviado = true;
             }
             if($vEnviado){
-                if(isset($_POST['nombrePlataforma'])){
-                    $vPlataformaCreada = guardarPlataforma($_POST['nombrePlataforma'], $_POST['sloganPlataforma']);
+                if(isset($_POST['nombreidiomas'])){
+                    $vIdiomaCreado = guardaridiomas($_POST['nombreidiomas'], $_POST['ISO_code']);
                 }
             }
 
             if(!$vEnviado){
         ?>
-        <form name="crear_plataforma" action="" method="POST">
+        <form name="crear_idiomas" action="" method="POST">
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <label for="nombrePlataforma" class="form-label">Nombre Plataform</label>
+                        <label for="nombreidiomas" class="form-label">Nombre idioma</label>
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <input name="nombrePlataforma" id="nombrePlataforma" type="text"
+                        <input name="nombreidiomas" id="nombreidiomas" type="text"
                             placeholder="Intrudice el nombre" class="form-control" required>
                     </div>
                 </div>
@@ -80,13 +80,13 @@
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <label for="sloganPlataforma" class="form-label">Slogan Plataform</label>
+                        <label for="iSO_codeidiomas" class="form-label">Codigo ISO</label>
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <input name="sloganPlataforma" id="sloganPlataforma" type="text"
-                            placeholder="Intrudice el slogan" class="form-control" required>
+                        <input name="ISO_code" id="ISO_codeidiomas" type="text"
+                            placeholder="Intrudice el ISO_code" class="form-control" required>
                     </div>
                 </div>
             </div>
@@ -98,11 +98,11 @@
         </form>
         <?php
             }else{
-                if($vPlataformaCreada){
+                if($vIdiomaCreado){
         ?>
         <div class="container">
             <div class="alert alert-success" role="alert">
-                Plataforma creada correctamente.
+                idiomas creada correctamente.
             </div>
         </div>
         <?php
@@ -112,7 +112,7 @@
         ?>
         <div class="container">
             <div class="alert alert-danger" role="alert">
-                Algo salio mal! Verifique que el nombre de la plataforma no este repetido.
+                Algo salio mal! Verifique que el nombre del idioma no este repetido.
             </div>
         </div>
         <?php
@@ -123,7 +123,7 @@
         ?>
         <div class="row justify-content-md-center m-3">
             <!-- <div class="col-2"> -->
-                <a href="/views/plataformas/lista.php"><button class="btn btn-danger">Volver</button></a>
+                <a href="/views/idiomas/lista.php"><button class="btn btn-danger">Volver</button></a>
             <!-- </div> -->
         </div>
     </div>

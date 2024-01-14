@@ -1,5 +1,5 @@
 <?php
-    require_once('../../controllers/plataforma/PlataformaControlador.php');
+    require_once('../../controllers/idiomas/idiomasControlador.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -22,7 +22,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
             <li class="nav-item">
@@ -31,7 +31,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/views/actores/lista.php">Actores </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/idiomas/lista.php">Idiomas </a>
             </li>
             <li class="nav-item">
@@ -43,18 +43,18 @@
     </nav>
     <div class="container">
         <?php
-            $idPlataforma = $_GET['id'];
-            $plataforma = traerPlataformaPorId($idPlataforma);
+            $ididiomas = $_GET['id'];
+            $idiomas = traeridiomaId($ididiomas);
 
             $vEnviado = false;
-            $vPlataformaEliminada = false;
+            $vidiomasEliminada = false;
 
             if(isset($_POST['eliminarBtn'])){
                 $vEnviado = true;
             }
             if($vEnviado){
                 
-                $vPlataformaEliminada = eliminarPlataforma($idPlataforma);
+                $vidiomasEliminada = eliminaridiomas($ididiomas);
                 
             }
 
@@ -64,12 +64,12 @@
             <div class="card-header">
                 <div class="row justify-content-md-center">
                     
-                    <h3>Estas seguro que deseas eliminar la plataforma <?php echo $plataforma->getNombre() ?></h3>
+                    <h3>Estas seguro que deseas eliminar el idioma <?php echo $idiomas->getNombre() ?></h3>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <a class="btn btn-warning"  href="/views/plataformas/lista.php">Volver</a>
-                <form name="eliminar_plataforma" action="" method="POST">
+                <a class="btn btn-warning"  href="/views/idiomas/lista.php">Volver</a>
+                <form name="eliminar_idiomas" action="" method="POST">
                     <input type="submit" value="Eliminar" class="btn btn-danger" name="eliminarBtn">
                 </form>
             </div>
@@ -77,11 +77,11 @@
         </div>
         <?php
             }else{
-                if($vPlataformaEliminada){
+                if($vidiomasEliminada){
         ?>
         <div class="container">
             <div class="alert alert-success" role="alert">
-                Plataforma eliminada correctamente.
+                idioma eliminado correctamente.
             </div>
         </div>
         <?php
@@ -98,7 +98,7 @@
                 }
         ?>
         <div class="row justify-content-md-center">
-                <a class="btn btn-warning"  href="/views/plataformas/lista.php">Volver</a>
+                <a class="btn btn-warning"  href="/views/idiomas/lista.php">Volver</a>
             </div>
         <?php
             }
