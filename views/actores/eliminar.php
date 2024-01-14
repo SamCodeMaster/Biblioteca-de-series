@@ -1,5 +1,5 @@
 <?php
-    require_once('../../controllers/plataforma/PlataformaControlador.php');
+    require_once('../../controllers/actor/ActorControlador.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -22,13 +22,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Directores </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/actores/lista.php">Actores </a>
             </li>
             <li class="nav-item">
@@ -43,18 +43,18 @@
     </nav>
     <div class="container">
         <?php
-            $idPlataforma = $_GET['id'];
-            $plataforma = traerPlataformaPorId($idPlataforma);
+            $id = $_GET['id'];
+            $actor = traerActorPorId($id);
 
             $vEnviado = false;
-            $vPlataformaEliminada = false;
+            $vActorEliminado = false;
 
             if(isset($_POST['eliminarBtn'])){
                 $vEnviado = true;
             }
             if($vEnviado){
                 
-                $vPlataformaEliminada = eliminarPlataforma($idPlataforma);
+                $vActorEliminado = eliminarActor($id);
                 
             }
 
@@ -64,11 +64,11 @@
             <div class="card-header">
                 <div class="row justify-content-md-center">
                     
-                    <h3>Estas seguro que deseas eliminar la plataforma <?php echo $plataforma->getNombre() ?></h3>
+                    <h3>Estas seguro que deseas eliminar a el actor <?php echo $actor->getNombre() ?> <?php echo $actor->getApellido() ?></h3>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <a class="btn btn-warning"  href="/views/plataformas/lista.php">Volver</a>
+                <a class="btn btn-warning"  href="/views/actores/lista.php">Volver</a>
                 <form name="eliminar_plataforma" action="" method="POST">
                     <input type="submit" value="Eliminar" class="btn btn-danger" name="eliminarBtn">
                 </form>
@@ -77,7 +77,7 @@
         </div>
         <?php
             }else{
-                if($vPlataformaEliminada){
+                if($vActorEliminado){
         ?>
         <div class="container">
             <div class="alert alert-success" role="alert">
@@ -98,7 +98,7 @@
                 }
         ?>
         <div class="row justify-content-md-center">
-                <a class="btn btn-warning"  href="/views/plataformas/lista.php">Volver</a>
+                <a class="btn btn-warning"  href="/views/actores/lista.php">Volver</a>
             </div>
         <?php
             }

@@ -21,20 +21,20 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Directores </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Actores </a>
+                <a class="nav-link" href="/views/actores/lista.php">Actores </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Idiomas </a>
+                <a class="nav-link" href="/views/idiomas/lista.php">Idiomas </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Series </a>
@@ -45,7 +45,7 @@
     </nav>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Crear Plataforma</h2>
+            <h2 class="text-center">Editar Plataforma</h2>
         </div>
     </div>
     <div class="container">

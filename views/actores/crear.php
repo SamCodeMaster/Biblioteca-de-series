@@ -1,5 +1,5 @@
 <?php
-    require_once('../../controllers/plataforma/PlataformaControlador.php');
+    require_once('../../controllers/actor/ActorControlador.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,13 +24,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Directores </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/actores/lista.php">Actores </a>
             </li>
             <li class="nav-item">
@@ -45,20 +45,18 @@
     </nav>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Crear Plataforma</h2>
+            <h2 class="text-center">Crear Actor</h2>
         </div>
     </div>
     <div class="container">
         <?php
             $vEnviado = false;
-            $vPlataformaCreada = false;
+            $vActorCreado = false;
             if(isset($_POST['crearBtn'])){
                 $vEnviado = true;
             }
             if($vEnviado){
-                if(isset($_POST['nombrePlataforma'])){
-                    $vPlataformaCreada = guardarPlataforma($_POST['nombrePlataforma'], $_POST['sloganPlataforma']);
-                }
+                $vActorCreado = guardarActor($_POST['nombre'], $_POST['apellido'], $_POST['nacimiento'], $_POST['nacionalidad']);
             }
 
             if(!$vEnviado){
@@ -67,12 +65,12 @@
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <label for="nombrePlataforma" class="form-label">Nombre Plataform</label>
+                        <label for="nombre" class="form-label">Nombre</label>
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <input name="nombrePlataforma" id="nombrePlataforma" type="text"
+                        <input name="nombre" id="nombre" type="text"
                             placeholder="Intrudice el nombre" class="form-control" required>
                     </div>
                 </div>
@@ -80,16 +78,43 @@
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <label for="sloganPlataforma" class="form-label">Slogan Plataform</label>
+                        <label for="apellido" class="form-label">Apellido</label>
                     </div>
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <input name="sloganPlataforma" id="sloganPlataforma" type="text"
-                            placeholder="Intrudice el slogan" class="form-control" required>
+                        <input name="apellido" id="apellido" type="text"
+                            placeholder="Intrudice el apellido" class="form-control" required>
                     </div>
                 </div>
             </div>
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <label for="nacimiento" class="form-label">Fecha de nacimiento</label>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <input name="nacimiento" id="nacimiento" type="date"
+                            placeholder="Intrudice fecha de nacimiento" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <label for="nacionalidad" class="form-label">Nacionalidad</label>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-4">
+                        <input name="nacionalidad" id="nacionalidad" type="text"
+                            placeholder="Intrudice nacionalidad" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            
             <div class="row justify-content-md-center m-3">
                 <!-- <div class="col-2"> -->
                     <input type="submit" value="Crear" class="btn btn-primary" name="crearBtn">
@@ -98,11 +123,11 @@
         </form>
         <?php
             }else{
-                if($vPlataformaCreada){
+                if($vActorCreado){
         ?>
         <div class="container">
             <div class="alert alert-success" role="alert">
-                Plataforma creada correctamente.
+                Actor creado correctamente.
             </div>
         </div>
         <?php
@@ -112,7 +137,7 @@
         ?>
         <div class="container">
             <div class="alert alert-danger" role="alert">
-                Algo salio mal! Verifique que el nombre de la plataforma no este repetido.
+                Algo salio mal!
             </div>
         </div>
         <?php
@@ -123,7 +148,7 @@
         ?>
         <div class="row justify-content-md-center m-3">
             <!-- <div class="col-2"> -->
-                <a href="/views/plataformas/lista.php"><button class="btn btn-danger">Volver</button></a>
+                <a href="/views/actores/lista.php"><button class="btn btn-danger">Volver</button></a>
             <!-- </div> -->
         </div>
     </div>

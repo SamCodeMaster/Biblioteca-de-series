@@ -1,7 +1,7 @@
-
 <?php
-    require_once('../../controllers/plataforma/PlataformaControlador.php');
+    require_once('../../controllers/actor/ActorControlador.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,13 +23,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Directores </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/actores/lista.php">Actores </a>
             </li>
             <li class="nav-item">
@@ -41,50 +41,54 @@
             
           </ul>
         </div>
-    </nav>
-    <div class="row">
+      </nav>
+      <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Lista De Plataformas</h2>
+            <h2 class="text-center">Lista De Actores</h2>
         </div>
     </div>
     <div class="row m-3">
         <div class="col-12">
-        <a href="/views/plataformas/crear.php">
-            <button type="button" class="btn btn-success">Crear Plataforma</button>
+        <a href="/views/actores/crear.php">
+            <button type="button" class="btn btn-success">Crear Actor</button>
         </a>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             <?php
-                $listaPlataformas = traerPlataformas();
+                $listaActores = traerActores();
 
-                if(count($listaPlataformas) > 0){
+                if(count($listaActores) > 0){
             ?>
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Slogan</th>
+                        <th>Apellido</th>
+                        <th>Nacimiento</th>
+                        <th>Nacionalidad</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                        foreach($listaPlataformas as $plat){
+                        foreach($listaActores as $actor){
                     ?>
                     <tr>
-                        <td><?php echo $plat->getId() ?></td>
-                        <td><?php echo $plat->getNombre() ?></td>
-                        <td><?php echo $plat->getSlogan() ?></td>
+                        <td><?php echo $actor->getId() ?></td>
+                        <td><?php echo $actor->getNombre() ?></td>
+                        <td><?php echo $actor->getApellido() ?></td>
+                        <td><?php echo $actor->getFechaNacimiento() ?></td>
+                        <td><?php echo $actor->getNacionalidad() ?></td>
                         <td>
                             <a class="btn btn-warning" 
-                                href="/views/plataformas/editar.php?id=
-                                <?php echo $plat->getId(); ?>">Editar</a>
+                                href="/views/actores/editar.php?id=
+                                <?php echo $actor->getId(); ?>">Editar</a>
                             <a class="btn btn-danger"
-                                href="/views/plataformas/eliminar.php?id=
-                                <?php echo $plat->getId(); ?>">Eliminar</a>
+                                href="/views/actores/eliminar.php?id=
+                                <?php echo $actor->getId(); ?>">Eliminar</a>
                         </td>
                     </tr>
                     <?php
@@ -96,7 +100,7 @@
                 }else{
             ?>
                 <div class="alert alert-warning" role="alert">
-                    Aún no existen plataformas
+                    Aún no existen Actores
                 </div>
             <?php
                 }

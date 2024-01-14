@@ -1,6 +1,6 @@
 
 <?php
-    require_once('../../controllers/plataforma/PlataformaControlador.php');
+    require_once('../../controllers/idiomas/idiomasControlador.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,7 +23,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/views/plataformas/lista.php">Plataformas </a>
             </li>
             <li class="nav-item">
@@ -32,7 +32,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/views/actores/lista.php">Actores </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/views/idiomas/lista.php">Idiomas </a>
             </li>
             <li class="nav-item">
@@ -44,46 +44,46 @@
     </nav>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Lista De Plataformas</h2>
+            <h2 class="text-center">Lista De idiomas</h2>
         </div>
     </div>
     <div class="row m-3">
         <div class="col-12">
-        <a href="/views/plataformas/crear.php">
-            <button type="button" class="btn btn-success">Crear Plataforma</button>
+        <a href="/views/idiomas/crear.php">
+            <button type="button" class="btn btn-success">Crear idiomas</button>
         </a>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             <?php
-                $listaPlataformas = traerPlataformas();
+                $listaidiomas = traeridiomas();
 
-                if(count($listaPlataformas) > 0){
+                if(count($listaidiomas) > 0){
             ?>
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Slogan</th>
+                        <th>Codigo ISO</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                        foreach($listaPlataformas as $plat){
+                        foreach($listaidiomas as $plat){
                     ?>
                     <tr>
                         <td><?php echo $plat->getId() ?></td>
                         <td><?php echo $plat->getNombre() ?></td>
-                        <td><?php echo $plat->getSlogan() ?></td>
+                        <td><?php echo $plat->getISO_code() ?></td>
                         <td>
                             <a class="btn btn-warning" 
-                                href="/views/plataformas/editar.php?id=
+                                href="/views/idiomas/editar.php?id=
                                 <?php echo $plat->getId(); ?>">Editar</a>
                             <a class="btn btn-danger"
-                                href="/views/plataformas/eliminar.php?id=
+                                href="/views/idiomas/eliminar.php?id=
                                 <?php echo $plat->getId(); ?>">Eliminar</a>
                         </td>
                     </tr>
@@ -96,7 +96,7 @@
                 }else{
             ?>
                 <div class="alert alert-warning" role="alert">
-                    Aún no existen plataformas
+                    Aún no existen idiomas
                 </div>
             <?php
                 }
