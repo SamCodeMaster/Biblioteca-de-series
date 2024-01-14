@@ -58,15 +58,12 @@ function traerActorPorId($pId){
 }
 
 function guardarActor($pNombre, $pApellido, $pFechaNacimiento, $pNacionalidad){
-    echo gettype($pFechaNacimiento);
     $mysqli = iniciarConexionDB();
     $vBanderaGuardado = false;
     if($vResultado = $mysqli->query("Insert Into actores(nombre, apellido,
     fecha_nacimiento, nacionalidad) Values ('$pNombre', '$pApellido', '$pFechaNacimiento', '$pNacionalidad')")){
         $vBanderaGuardado = true;
     }
-    echo 'vResultado';
-    echo $vBanderaGuardado;
     $mysqli->close();
     return $vBanderaGuardado;
 }
