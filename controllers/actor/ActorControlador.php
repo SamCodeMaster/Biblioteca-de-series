@@ -92,9 +92,7 @@ function eliminarActor($pId){
     }
 }
 
-function gola(){
-    echo 'hola';
-}
+
 
 ?>
 

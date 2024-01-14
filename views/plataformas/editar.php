@@ -37,7 +37,7 @@
                 <a class="nav-link" href="/views/idiomas/lista.php">Idiomas </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Series </a>
+                <a class="nav-link" href="/views/series/lista.php">Series </a>
             </li>
             
           </ul>

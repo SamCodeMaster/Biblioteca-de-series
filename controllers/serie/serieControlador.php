@@ -105,7 +105,7 @@ function traerDetallesSerie($pSerieId){
             $info['id'] = $actor['id'];
             $info['nombre'] = $actor['nombre']." ".$actor['apellido'];
             
-            array_push( $arregloActores, $info);
+            array_push( $arregloActores, $actor['id']);
             
            
         }
@@ -114,7 +114,7 @@ function traerDetallesSerie($pSerieId){
             $info = [];
             $info['id'] = $audio['id'];
             $info['nombre'] = $audio['nombre']."(".$actor['ISO_code'].")";
-            array_push( $arregloAudio, $info);
+            array_push( $arregloAudio, $audio['id']);
            
         }
 
@@ -122,7 +122,7 @@ function traerDetallesSerie($pSerieId){
             $info = [];
             $info['id'] = $sub['id'];
             $info['nombre'] = $sub['nombre']."(".$sub['ISO_code'].")";
-            array_push( $arregloSub, $info);
+            array_push( $arregloSub, $sub['id']);
            
         }
 
@@ -143,19 +143,22 @@ function traerDetallesSerie($pSerieId){
 
 
 function guardarSerie($nombre, $plataforma, $director, $actores, $audio, $subtitulos){
-    print_r($actores);
     $mysqli = iniciarConexionDB();
+    
     $vBanderaGuardado = false;
+    
     if($vResultado = $mysqli->query("Insert Into series(nombre, plataforma, director) Values ('$nombre', '$plataforma','$director')")){
         $vBanderaGuardado = true;
     }
+    
     $id =  $mysqli->query("Select MAX(id) as id from series");
     $vId = [];
+    
     foreach($id as $val){
         array_push( $vId, $val['id']);
     }
     $id = $vId[0];
-
+    
     foreach($actores as $actor){
         if($vResultado = $mysqli->query("Insert Into rel_series_actores(serie, actor) Values ('$id', '$actor')")){
             $vBanderaGuardado = true;
@@ -179,6 +182,18 @@ function guardarSerie($nombre, $plataforma, $director, $actores, $audio, $subtit
 
     $mysqli->close();
     return $vBanderaGuardado;
+}
+
+function eliminarSerie($pId){
+    $mysqli = iniciarConexionDB();
+    $vBanderaEliminado = false;
+    if($vResultado = $mysqli->query("Delete From series Where id='$pId'")){
+        $vBanderaEliminado = true;
+        $mysqli->close();
+        return $vBanderaEliminado;
+    }else {
+        return false;
+    }
 }
 
 /* Plataforma */
@@ -439,11 +454,11 @@ function editarDirector($dId, $dNombre, $dApellidos, $dDni, $dFecha_Nac, $dNacio
 }
 
 function eliminarDirector($dId){
-    echo 'Eliminado';
+    
     $mysqli = iniciarConexionDB();
     $vBanderaEliminado = false;
     if($vResultado = $mysqli->query("Delete From directores Where id='$dId'")){
-        echo 'Eliminado';
+        
         $vBanderaEliminado = true;
         $mysqli->close();
         return $vBanderaEliminado;

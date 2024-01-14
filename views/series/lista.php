@@ -70,18 +70,20 @@
         </thead>
         <tbody>
             <?php
-                foreach($series as $plat){
+                foreach($series as $serie){
             ?>
             <tr>
-                <td><?php echo $plat->getId() ?></td>
-                <td><?php echo $plat->getNombre() ?></td>
-                <td><?php echo $plat->getPlataforma() ?></td>
-                <td><?php echo $plat->getDirector() ?></td>
+                <td><?php echo $serie->getId() ?></td>
+                <td><?php echo $serie->getNombre() ?></td>
+                <td><?php echo $serie->getPlataforma() ?></td>
+                <td><?php echo $serie->getDirector() ?></td>
                 <td>
                     <a class="btn btn-warning" 
-                        href="">Editar</a>
+                        href="/views/series/editar.php?id=
+                            <?php echo $serie->getId(); ?>">Editar</a>
                     <a class="btn btn-danger"
-                        href="">Eliminar</a>
+                        href="/views/series/eliminar.php?id=
+                            <?php echo $serie->getId(); ?>">Eliminar</a>
                 </td>
             </tr>
             <?php

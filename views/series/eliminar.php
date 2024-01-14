@@ -1,5 +1,5 @@
 <?php
-    require_once('../../controllers/director/directorControlador.php');
+    require_once('../../controllers/serie/serieControlador.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,18 +43,18 @@
     </nav>
     <div class="container">
         <?php
-            $idDirector = $_GET['id'];
-            $director = traerDirectorPorId($idDirector);
+            $idSerie = $_GET['id'];
+            $serie = traerSeriePorId($idSerie);
 
             $vEnviado = false;
-            $vDirectorEliminado = false;
+            $vSerieEliminada = false;
 
             if(isset($_POST['eliminarBtn'])){
                 $vEnviado = true;
             }
             if($vEnviado){
                 
-                $vDirectorEliminado = eliminarDirector($idDirector);
+                $vSerieEliminada = eliminarSerie($idSerie);
                 
             }
 
@@ -64,12 +64,12 @@
             <div class="card-header">
                 <div class="row justify-content-md-center">
                     
-                    <h3>Estas seguro que deseas eliminar el director <?php echo $director->getNombre() ?></h3>
+                    <h3>Estas seguro que deseas eliminar la serie <?php echo $serie->getNombre() ?></h3>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <a class="btn btn-warning"  href="/views/directores/lista.php">Volver</a>
-                <form name="eliminar_director" action="" method="POST">
+                <a class="btn btn-warning"  href="/views/series/lista.php">Volver</a>
+                <form name="eliminar_plataforma" action="" method="POST">
                     <input type="submit" value="Eliminar" class="btn btn-danger" name="eliminarBtn">
                 </form>
             </div>
@@ -77,11 +77,11 @@
         </div>
         <?php
             }else{
-                if($vDirectorEliminado){
+                if($vSerieEliminada){
         ?>
         <div class="container">
             <div class="alert alert-success" role="alert">
-                Director eliminado correctamente.
+                Serie eliminada correctamente.
             </div>
         </div>
         <?php
@@ -98,7 +98,7 @@
                 }
         ?>
         <div class="row justify-content-md-center">
-                <a class="btn btn-warning"  href="/views/directores/lista.php">Volver</a>
+                <a class="btn btn-warning"  href="/views/series/lista.php">Volver</a>
             </div>
         <?php
             }

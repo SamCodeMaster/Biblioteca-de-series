@@ -113,11 +113,11 @@
     }
 
     function eliminarDirector($dId){
-        echo 'Eliminado';
+        
         $mysqli = iniciarConexionDB();
         $vBanderaEliminado = false;
         if($vResultado = $mysqli->query("Delete From directores Where id='$dId'")){
-            echo 'Eliminado';
+            
             $vBanderaEliminado = true;
             $mysqli->close();
             return $vBanderaEliminado;

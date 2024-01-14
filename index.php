@@ -1,3 +1,7 @@
+<?php
+    include 'controllers/serie/serieControlador.php';
+  
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -42,9 +46,22 @@
           </form>
         </div>
       </nav>
-
-      <div class="alert">
-        <h3>Estamos en Home</h3>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">Todas las series a un solo click</h1>
+            <h3 class="text-center">indice:</h3>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="/views/plataformas/lista.php">Plataformas</a></li>
+              <li class="list-group-item"><a href="/views/directores/lista.php">Directores</a></li>
+              <li class="list-group-item"><a href="/views/actores/lista.php">Actores</a></li>
+              <li class="list-group-item"><a href="/views/idiomas/lista.php">Idiomas</a></li>
+              <li class="list-group-item"><a href="/views/series/lista.php">Series</a></li>
+              <!-- Agrega más elementos de la lista según sea necesario -->
+            </ul>
+          </div>
+        </div>
       </div>
+      
 </body>
 </html>

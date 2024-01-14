@@ -48,12 +48,15 @@
     </nav>
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <h2 class="text-center">Crear Serie</h2>
+            <h2 class="text-center">Editar Serie</h2>
         </div>
     </div>
     <div class="container">
         <?php
-            
+            $idSerie = $_GET['id'];
+
+            $detalleSerie = traerDetallesSerie($idSerie);
+
             $listaPlataformas = traerPlataformas();
             
             $listaActor = traerActores();
@@ -63,13 +66,17 @@
             
             $vEnviado = false;
             $vSerieCreada = false;
-            if(isset($_POST['crearBtn'])){
+
+
+        
+            if(isset($_POST['editarBtn'])){
                 $vEnviado = true;
                 
             }
             
             if($vEnviado){
-                
+                    eliminarSerie($idSerie);
+                    
                     $vSerieCreada = guardarSerie($_POST['nombreSerie'], $_POST['Plataforma'],
                             $_POST['Director'], $_POST['Actores'],
                             $_POST['Audio'], $_POST['Subtitulo']);
@@ -89,7 +96,8 @@
                 <div class="row justify-content-md-center">
                     <div class="col-4">
                         <input name="nombreSerie" id="nombreSerie" type="text"
-                            placeholder="Intrudice el nombre" class="form-control" required>
+                            placeholder="Intrudice el nombre" class="form-control" required
+                            value="<?php echo $detalleSerie[0]->getNombre()  ?>">
                     </div>
                 </div>
             </div>
@@ -102,12 +110,13 @@
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                            <select name="Plataforma" id="Plataforma" class="form-select" style="width: 100%" require>
+                            <select name="Plataforma" id="Plataforma" class="form-select" style="width: 100%" require> 
                                 <?php
                                     foreach($listaPlataformas as $dir){
                                         
                                 ?>
-                                <option value="<?php echo $dir->getId(); ?>"><?php echo $dir->getNombre(); ?></option>
+                                <option <?php echo $dir->getId() == $detalleSerie[0]->getPlataforma()? 'selected': '';?> 
+                                value=<?php echo $dir->getId(); ?>><?php echo $dir->getNombre(); ?></option>
                                 <?php
                                     }
                                     
@@ -130,7 +139,8 @@
                                 foreach($listaDirectores as $dir){
                                     
                             ?>
-                            <option value="<?php echo $dir->getId(); ?>"><?php echo $dir->getNombre()." ".$dir->getApellidos(); ?></option>
+                            <option <?php echo $dir->getId() == $detalleSerie[0]->getDirector()? 'selected': '';?> 
+                                value=<?php echo $dir->getId(); ?>><?php echo $dir->getNombre()." ".$dir->getApellidos(); ?></option>
                             <?php
                                 }
                                 
@@ -148,12 +158,13 @@
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <select name="Actores[]" id="Actores[]" class="form-select" style="width: 100%" multiple >
+                        <select name="Actores[]" id="Actores[]" class="form-select" style="width: 100%" multiple required>
                             <?php
                                 foreach($listaActor as $actor){
-                                    
+                                    $bool = in_array($actor->getId(), $detalleSerie[1]);
                             ?>
-                            <option value="<?php echo $actor->getId(); ?>"><?php echo $actor->getNombre()." ".$actor->getApellido(); ?></option>
+                            <option <?php echo $bool? 'selected': '';?>
+                                value="<?php echo $actor->getId(); ?>"><?php echo $actor->getNombre()." ".$actor->getApellido();?></option>
                             <?php
                                 }
                                 
@@ -171,12 +182,13 @@
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <select name="Audio[]" id="Audio[]" class="form-select" style="width: 100%" multiple >
+                        <select name="Audio[]" id="Audio[]" class="form-select" style="width: 100%" multiple required>
                             <?php
                                 foreach($listaIdiom as $idioma){
-                                    
+                                    $bool = in_array($idioma->getId(), $detalleSerie[2]);
                             ?>
-                            <option value="<?php echo $idioma->getId(); ?>"><?php echo $idioma->getNombre()." ".$idioma->getISO_code(); ?></option>
+                            <option <?php echo $bool? 'selected': '';?>
+                            value="<?php echo $idioma->getId(); ?>"><?php echo $idioma->getNombre()." ".$idioma->getISO_code(); ?></option>
                             <?php
                                 }
                                 
@@ -194,12 +206,13 @@
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-4">
-                        <select name="Subtitulo[]" id="Subtitulo[]"  class="form-select" style="width: 100%" multiple >
+                        <select name="Subtitulo[]" id="Subtitulo[]"  class="form-select" style="width: 100%" multiple required>
                             <?php
                                 foreach($listaIdiom as $idioma){
-                                    
+                                    $bool = in_array($idioma->getId(), $detalleSerie[3]);
                             ?>
-                            <option value="<?php echo $idioma->getId(); ?>"><?php echo $idioma->getNombre()." ".$idioma->getISO_code(); ?></option>
+                            <option <?php echo $bool? 'selected': '';?> 
+                                value="<?php echo $idioma->getId(); ?>"><?php echo $idioma->getNombre()." ".$idioma->getISO_code(); ?></option>
                             <?php
                                 }
                                 
@@ -212,7 +225,7 @@
             
             <div class="row justify-content-md-center m-3">
                 <!-- <div class="col-2"> -->
-                    <input type="submit" value="Crear" class="btn btn-primary" name="crearBtn">
+                    <input type="submit" value="Editar" class="btn btn-primary" name="editarBtn">
                 <!-- </div> -->
             </div>
 
@@ -224,7 +237,7 @@
         ?>
         <div class="container">
             <div class="alert alert-success" role="alert">
-                Serie creada correctamente.
+                Serie editada correctamente.
             </div>
         </div>
         <?php
